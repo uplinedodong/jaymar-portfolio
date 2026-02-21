@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowDown, Download, Sparkles } from "lucide-react";
+import Image from "next/image";
 
 const ROLES = [
     "Full-Stack Developer",
@@ -14,20 +15,32 @@ const ROLES = [
 
 const CODE_LINES = [
     { prefix: "const", name: " developer", op: " =", value: " {", color: "#a5b4fc" },
-    { indent: 2, key: "  name:", value: ' "Jaymar Aranas"', color: "#34d399" },
-    { indent: 2, key: "  role:", value: ' "Full-Stack · Mobile"', color: "#34d399" },
-    { indent: 2, key: "  location:", value: ' "Philippines 🇵🇭"', color: "#34d399" },
+    { indent: 2, key: "  name:", value: ' "Jaymar G. Aranas"', color: "#34d399" },
+    { indent: 2, key: "  role:", value: ' "Full-Stack · Mobile Dev"', color: "#34d399" },
+    { indent: 2, key: "  location:", value: ' "Dumaguete, Negros Oriental, Philippines 🇵🇭"', color: "#34d399" },
     { indent: 2, key: "  available:", value: " true", color: "#f472b6" },
-    { indent: 2, key: "  stack:", value: " [React, Next.js, RN]", color: "#fb923c" },
+    { indent: 2, key: "  stack:", value: " [React Native, Expo, Laravel, etc]", color: "#fb923c" },
     { indent: 0, key: "}", value: "", color: "#a5b4fc" },
     { prefix: "", name: "", op: "", value: "", color: "" },
     { prefix: "developer", name: "", op: ".deploy()", value: " // 🚀", color: "#94a3b8" },
 ];
 
-const STACK_TICKER = [
-    "React Native", "Next.js", "TypeScript", "Expo", "MySQL",
-    "React", "PHP", "SQLite", "Git", "Tailwind CSS", "Node.js",
-    "REST APIs", "System Design", "Java", "JavaScript",
+const STACK_DATA = [
+    { name: "React Native", slug: "react", color: "61DAFB" },
+    { name: "Next.js", slug: "nextdotjs", color: "FFFFFF" },
+    { name: "TypeScript", slug: "typescript", color: "3178C6" },
+    { name: "Expo", slug: "expo", color: "FFFFFF" },
+    { name: "MySQL", slug: "mysql", color: "4479A1" },
+    { name: "Laravel", slug: "laravel", color: "FF2D20" },
+    { name: "PHP", slug: "php", color: "777BB3" },
+    { name: "SQLite", slug: "sqlite", color: "003D8B" },
+    { name: "Git", slug: "git", color: "F05032" },
+    { name: "Tailwind CSS", slug: "tailwindcss", color: "06B6D4" },
+    { name: "Node.js", slug: "nodedotjs", color: "339933" },
+    { name: "Postman", slug: "postman", color: "FF6C37" },
+    { name: "Firebase", slug: "firebase", color: "FFCA28" },
+    { name: "Java", slug: "openjdk", color: "EA5731" },
+    { name: "JavaScript", slug: "javascript", color: "F7DF1E" },
 ];
 
 export default function Hero() {
@@ -101,33 +114,64 @@ export default function Hero() {
 
                     {/* Left: Text */}
                     <div>
-                        {/* Status badge */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 16 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, delay: 0.1 }}
-                            style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", marginBottom: "1.75rem" }}
-                        >
-                            <span className="section-label">
-                                <span style={{ position: "relative", display: "inline-flex" }}>
-                                    <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#22c55e", display: "block" }} />
-                                    <span style={{ position: "absolute", inset: 0, borderRadius: "50%", background: "#22c55e", animation: "pulse 1.5s ease-out infinite" }} />
-                                </span>
-                                Open to opportunities
-                                <Sparkles size={10} />
-                            </span>
-                        </motion.div>
+                        <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "2rem", marginBottom: "2.5rem" }}>
+                            {/* Profile Image - Hero Best Practice */}
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.8 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+                                style={{ position: "relative", width: "fit-content" }}
+                            >
+                                <div style={{
+                                    position: "relative",
+                                    width: "96px",
+                                    height: "96px",
+                                    borderRadius: "100%",
+                                    padding: "3px",
+                                    background: "linear-gradient(135deg, #6366f1, #8b5cf6)",
+                                    boxShadow: "0 0 25px rgba(99,102,241,0.3)"
+                                }}>
+                                    <Image
+                                        src="/jaymar.png"
+                                        alt="Jaymar Aranas"
+                                        width={96}
+                                        height={96}
+                                        style={{ borderRadius: "100%", objectFit: "cover", background: "#030712" }}
+                                    />
+                                    <div style={{ position: "absolute", bottom: "4px", right: "4px", width: "18px", height: "18px", background: "#22c55e", borderRadius: "50%", border: "2px solid #030712", boxShadow: "0 0 10px rgba(34,197,94,0.5)" }} />
+                                </div>
+                            </motion.div>
 
-                        {/* Name */}
-                        <motion.h1
-                            initial={{ opacity: 0, y: 24 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                            style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 900, lineHeight: 1.05, letterSpacing: "-0.03em", marginBottom: "0.5rem" }}
-                        >
-                            <span style={{ fontSize: "clamp(2.75rem, 6vw, 4.5rem)", color: "#f1f5f9", display: "block" }}>Jaymar</span>
-                            <span className="gradient-text" style={{ fontSize: "clamp(2.75rem, 6vw, 4.5rem)", display: "block" }}>Aranas</span>
-                        </motion.h1>
+                            <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+                                {/* Status badge */}
+                                <motion.div
+                                    initial={{ opacity: 0, y: 16 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.6, delay: 0.1 }}
+                                    style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.375rem" }}
+                                >
+                                    <span className="section-label" style={{ fontSize: "0.65rem", padding: "0.25rem 0.6rem" }}>
+                                        <span style={{ position: "relative", display: "inline-flex" }}>
+                                            <span style={{ width: "5px", height: "5px", borderRadius: "50%", background: "#22c55e", display: "block" }} />
+                                            <span style={{ position: "absolute", inset: 0, borderRadius: "50%", background: "#22c55e", animation: "pulse 1.5s ease-out infinite" }} />
+                                        </span>
+                                        Booking for Q{Math.floor(new Date().getMonth() / 3) + 1} {new Date().getFullYear()}
+                                        <Sparkles size={10} />
+                                    </span>
+                                </motion.div>
+
+                                {/* Name */}
+                                <motion.h1
+                                    initial={{ opacity: 0, y: 24 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                                    style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 900, lineHeight: 1.05, letterSpacing: "-0.03em", margin: 0 }}
+                                >
+                                    <span style={{ fontSize: "clamp(2.75rem, 6vw, 4.5rem)", color: "#f1f5f9", display: "block" }}>Jaymar</span>
+                                    <span className="gradient-text" style={{ fontSize: "clamp(2.75rem, 6vw, 4.5rem)", display: "block" }}>Aranas</span>
+                                </motion.h1>
+                            </div>
+                        </div>
 
                         {/* Typewriter role */}
                         <motion.div
@@ -176,16 +220,33 @@ export default function Hero() {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.85 }}
-                            style={{ marginTop: "2.5rem", display: "flex", gap: "2rem" }}
+                            style={{
+                                marginTop: "1.75rem",
+                                display: "flex",
+                                gap: "3.5rem",
+                                alignItems: "center"
+                            }}
                         >
                             {[
-                                { n: "3+", label: "Yrs Experience" },
-                                { n: "15+", label: "Projects" },
-                                { n: "100%", label: "Production-Ready" },
+                                { n: "2+", label: "Yrs Experience" },
+                                { n: "7+", label: "Projects" },
                             ].map((s) => (
-                                <div key={s.label}>
-                                    <div style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 800, fontSize: "1.375rem", color: "#f1f5f9" }} className="gradient-text">{s.n}</div>
-                                    <div style={{ fontSize: "0.7rem", color: "#475569", marginTop: "0.125rem", letterSpacing: "0.04em" }}>{s.label}</div>
+                                <div key={s.label} style={{ textAlign: "center" }}>
+                                    <div style={{
+                                        fontFamily: "'Plus Jakarta Sans', sans-serif",
+                                        fontWeight: 800,
+                                        fontSize: "1.75rem",
+                                        color: "#f1f5f9",
+                                        lineHeight: 1
+                                    }} className="gradient-text">{s.n}</div>
+                                    <div style={{
+                                        fontSize: "0.625rem",
+                                        color: "#64748b",
+                                        marginTop: "0.375rem",
+                                        letterSpacing: "0.1em",
+                                        textTransform: "uppercase",
+                                        fontWeight: 600
+                                    }}>{s.label}</div>
                                 </div>
                             ))}
                         </motion.div>
@@ -264,11 +325,17 @@ export default function Hero() {
                     background: "rgba(255,255,255,0.01)",
                 }}
             >
-                <div className="marquee" style={{ display: "inline-flex", gap: "2.5rem", whiteSpace: "nowrap" }}>
-                    {[...STACK_TICKER, ...STACK_TICKER].map((s, i) => (
-                        <span key={i} style={{ display: "flex", alignItems: "center", gap: "0.75rem", color: "#334155", fontSize: "0.8125rem", fontFamily: "JetBrains Mono, monospace", fontWeight: 500 }}>
-                            <span style={{ width: "4px", height: "4px", borderRadius: "50%", background: "#6366f1", display: "inline-block" }} />
-                            {s}
+                <div className="marquee" style={{ display: "inline-flex", gap: "3rem", whiteSpace: "nowrap" }}>
+                    {[...STACK_DATA, ...STACK_DATA].map((s, i) => (
+                        <span key={i} style={{ display: "flex", alignItems: "center", gap: "0.625rem" }}>
+                            <img
+                                src={`https://cdn.simpleicons.org/${s.slug}/${s.color}`}
+                                alt={s.name}
+                                style={{ width: "16px", height: "16px", opacity: 0.5, filter: "grayscale(1) brightness(1.5)" }}
+                            />
+                            <span style={{ color: "#334155", fontSize: "0.8125rem", fontFamily: "JetBrains Mono, monospace", fontWeight: 500 }}>
+                                {s.name}
+                            </span>
                         </span>
                     ))}
                 </div>

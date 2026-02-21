@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import Image from "next/image";
 
 const links = [
     { label: "About", href: "#about" },
@@ -61,18 +62,23 @@ export default function Navbar() {
                 <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 1.5rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                     {/* Logo */}
                     <a href="#" style={{ display: "flex", alignItems: "center", gap: "0.625rem", textDecoration: "none" }}>
-                        <div style={{
-                            width: "36px", height: "36px", borderRadius: "10px",
-                            background: "linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)",
-                            display: "flex", alignItems: "center", justifyContent: "center",
-                            boxShadow: "0 0 16px rgba(99,102,241,0.4), inset 0 1px 0 rgba(255,255,255,0.1)",
-                            flexShrink: 0,
-                        }}>
-                            <span style={{ color: "white", fontSize: "0.875rem", fontWeight: 700, fontFamily: "JetBrains Mono, monospace" }}>JA</span>
-                        </div>
+                        <Image
+                            src="/logo.png"
+                            alt="Jaymar G. Aranas"
+                            width={36}
+                            height={36}
+                            priority
+                            style={{
+                                borderRadius: "10px",
+                                objectFit: "cover",
+                                boxShadow: "0 0 16px rgba(99,102,241,0.2)",
+                                flexShrink: 0,
+                            }}
+                        />
+
                         <div>
-                            <div style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: "1rem", color: "#f1f5f9", lineHeight: 1.1 }}>Jaymar Aranas</div>
-                            <div style={{ fontSize: "0.65rem", color: "#475569", letterSpacing: "0.06em", fontFamily: "JetBrains Mono, monospace" }}>full-stack · mobile</div>
+                            <div style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: "1rem", color: "#f1f5f9", lineHeight: 1.1 }}>Jaymar G. Aranas</div>
+                            <div style={{ fontSize: "0.65rem", color: "#475569", letterSpacing: "0.06em", fontFamily: "JetBrains Mono, monospace" }}>Full-stack · Mobile Dev</div>
                         </div>
                     </a>
 

@@ -3,26 +3,40 @@
 import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 
-type Skill = { name: string; icon: string; rgb: string; color: string; category: string };
+type Skill = { name: string; icon: string; slug?: string; rgb: string; color: string; category: string };
 
 const SKILLS: Skill[] = [
     // Languages
-    { name: "JavaScript", icon: "JS", rgb: "234,179,8", color: "#eab308", category: "Language" },
-    { name: "TypeScript", icon: "TS", rgb: "56,128,232", color: "#3880e8", category: "Language" },
-    { name: "PHP", icon: "PHP", rgb: "119,82,165", color: "#7752a5", category: "Language" },
-    { name: "Java", icon: "☕", rgb: "234,87,49", color: "#ea5731", category: "Language" },
-    { name: "SQL", icon: "⚡", rgb: "56,189,248", color: "#38bdf8", category: "Language" },
+    { name: "JavaScript", icon: "JS", slug: "javascript", rgb: "247,223,30", color: "#f7df1e", category: "Language" },
+    { name: "TypeScript", icon: "TS", slug: "typescript", rgb: "49,120,198", color: "#3178c6", category: "Language" },
+    { name: "PHP", icon: "PHP", slug: "php", rgb: "119,123,179", color: "#777bb3", category: "Language" },
+    { name: "Java", icon: "☕", slug: "openjdk", rgb: "234,87,49", color: "#ea5731", category: "Language" },
+    { name: "VB.NET", icon: "VB", slug: "dotnet", rgb: "24,160,251", color: "#18a0fb", category: "Language" },
+    { name: "C#", icon: "C#", slug: "csharp", rgb: "81,43,212", color: "#512bd4", category: "Language" },
+    { name: "C++", icon: "C++", slug: "cplusplus", rgb: "0,89,155", color: "#00599b", category: "Language" },
+    { name: "PowerScript", icon: "PS", rgb: "255,165,0", color: "#ffa500", category: "Language" },
+    { name: "Python", icon: "PY", slug: "python", rgb: "55,115,165", color: "#3773a5", category: "Language" },
+    { name: "HTML5", icon: "5", slug: "html5", rgb: "227,76,38", color: "#e34c26", category: "Language" },
+    { name: "CSS3", icon: "CSS", slug: "css3", rgb: "21,114,182", color: "#1572b6", category: "Language" },
+    { name: "SQL", icon: "⚡", slug: "mysql", rgb: "56,189,248", color: "#38bdf8", category: "Language" },
     // Frameworks
-    { name: "React", icon: "⚛", rgb: "97,218,251", color: "#61dafb", category: "Framework" },
-    { name: "React Native", icon: "📱", rgb: "97,218,251", color: "#61dafb", category: "Framework" },
-    { name: "Next.js", icon: "▲", rgb: "255,255,255", color: "#ffffff", category: "Framework" },
-    { name: "Expo", icon: "◉", rgb: "0,197,255", color: "#00c5ff", category: "Framework" },
-    { name: "Tailwind CSS", icon: "🌊", rgb: "56,189,248", color: "#38bdf8", category: "Framework" },
+    { name: "Laravel", icon: "L", slug: "laravel", rgb: "255,45,32", color: "#ff2d20", category: "Framework" },
+    { name: "React", icon: "⚛", slug: "react", rgb: "97,218,251", color: "#61dafb", category: "Framework" },
+    { name: "React Native", icon: "📱", slug: "react", rgb: "97,218,251", color: "#61dafb", category: "Framework" },
+    { name: "Next.js", icon: "▲", slug: "nextdotjs", rgb: "255,255,255", color: "#ffffff", category: "Framework" },
+    { name: "Expo", icon: "◉", slug: "expo", rgb: "255,255,255", color: "#ffffff", category: "Framework" },
+    { name: "Tailwind CSS", icon: "🌊", slug: "tailwindcss", rgb: "56,189,248", color: "#38bdf8", category: "Framework" },
+    { name: "Bootstrap", icon: "B", slug: "bootstrap", rgb: "121,82,179", color: "#7952b3", category: "Framework" },
     // Databases
-    { name: "MySQL", icon: "🐬", rgb: "0,136,206", color: "#0088ce", category: "Database" },
-    { name: "SQLite", icon: "🗄", rgb: "68,183,207", color: "#44b7cf", category: "Database" },
+    { name: "MySQL", icon: "🐬", slug: "mysql", rgb: "68,121,161", color: "#4479a1", category: "Database" },
+    { name: "Firebase", icon: "🔥", slug: "firebase", rgb: "255,202,40", color: "#FFCA28", category: "Database" },
+    { name: "MongoDB", icon: "🍃", slug: "mongodb", rgb: "71,162,72", color: "#47A248", category: "Database" },
+    { name: "Firebird", icon: "🦅", slug: "firebird", rgb: "228,34,36", color: "#E42224", category: "Database" },
+    { name: "SQLite", icon: "🗄", slug: "sqlite", rgb: "0,61,139", color: "#003d8b", category: "Database" },
     // Tools
-    { name: "Git", icon: "⎇", rgb: "240,80,50", color: "#f05032", category: "Tool" },
+    { name: "Postman", icon: "🚀", slug: "postman", rgb: "255,108,55", color: "#FF6C37", category: "Tool" },
+    { name: "ODBC", icon: "🔌", rgb: "56,128,232", color: "#3880e8", category: "Tool" },
+    { name: "Git", icon: "⎇", slug: "git", rgb: "240,80,50", color: "#f05032", category: "Tool" },
     { name: "REST API", icon: "🔌", rgb: "34,197,94", color: "#22c55e", category: "Tool" },
     { name: "System Design", icon: "🏗", rgb: "167,139,250", color: "#a78bfa", category: "Tool" },
     { name: "CRUD Apps", icon: "⚙", rgb: "251,191,36", color: "#fbbf24", category: "Tool" },
@@ -61,7 +75,7 @@ export default function Skills() {
                             My <span className="gradient-text">technical arsenal</span>
                         </h2>
                         <p style={{ color: "#475569", fontSize: "1rem", marginTop: "0.875rem", maxWidth: "480px" }}>
-                            Hover over any skill to see details. Filtered by category below.
+                            A comprehensive overview of the technologies I use to build scalable, production-ready applications.
                         </p>
                     </div>
                 </Reveal>
@@ -106,9 +120,9 @@ export default function Skills() {
                 <Reveal delay={0.4}>
                     <div style={{ marginTop: "4rem", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "1rem" }}>
                         {[
-                            { label: "React Ecosystem", pct: 90, color: "#61dafb" },
-                            { label: "Backend & APIs", pct: 82, color: "#22c55e" },
-                            { label: "Mobile Dev", pct: 88, color: "#a78bfa" },
+                            { label: "Ecosystem", pct: 90, color: "#61dafb" },
+                            { label: "Backend & APIs", pct: 89, color: "#22c55e" },
+                            { label: "Mobile Dev", pct: 93, color: "#a78bfa" },
                             { label: "Database Design", pct: 85, color: "#38bdf8" },
                         ].map((bar) => (
                             <ExperienceBar key={bar.label} {...bar} />
@@ -124,6 +138,7 @@ function SkillCard({ skill, delay }: { skill: Skill; delay: number }) {
     const ref = useRef(null);
     const inView = useInView(ref, { once: true, margin: "-40px" });
     const [hovered, setHovered] = useState(false);
+    const [imgError, setImgError] = useState(false);
 
     return (
         <motion.div
@@ -145,13 +160,34 @@ function SkillCard({ skill, delay }: { skill: Skill; delay: number }) {
                 background: `rgba(${skill.rgb},0.1)`,
                 border: `1px solid rgba(${skill.rgb},0.2)`,
                 display: "flex", alignItems: "center", justifyContent: "center",
-                fontSize: "1.25rem",
                 transition: "all 0.3s ease",
+                position: "relative",
+                overflow: "hidden",
                 ...(hovered ? { background: `rgba(${skill.rgb},0.2)`, boxShadow: `0 0 16px rgba(${skill.rgb},0.3)` } : {}),
             }}>
-                <span style={{ fontFamily: "JetBrains Mono, monospace", fontWeight: 700, fontSize: skill.icon.length > 2 ? "0.85rem" : "1.1rem", color: skill.color }}>
-                    {skill.icon}
-                </span>
+                {skill.slug && !imgError ? (
+                    <img
+                        src={`https://cdn.simpleicons.org/${skill.slug}/${skill.color.replace("#", "")}`}
+                        alt={skill.name}
+                        onError={() => setImgError(true)}
+                        style={{
+                            width: "28px",
+                            height: "28px",
+                            objectFit: "contain",
+                            filter: hovered ? "brightness(1.2) saturate(1.2)" : "none",
+                            transition: "all 0.3s ease",
+                        }}
+                    />
+                ) : (
+                    <span style={{
+                        fontFamily: "JetBrains Mono, monospace",
+                        fontWeight: 700,
+                        fontSize: skill.icon.length > 2 ? "0.75rem" : "1.05rem",
+                        color: skill.color
+                    }}>
+                        {skill.icon}
+                    </span>
+                )}
             </div>
 
             {/* Name */}

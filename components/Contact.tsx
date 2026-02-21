@@ -24,14 +24,42 @@ export default function Contact() {
     const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
     const [sent, setSent] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
         setForm({ ...form, [e.target.name]: e.target.value });
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
-        setTimeout(() => { setLoading(false); setSent(true); }, 1600);
+        setError(null);
+
+        const formspreeId = process.env.NEXT_PUBLIC_FORMSPREE_ID;
+
+        if (!formspreeId || formspreeId === "your_id_here") {
+            setError("Contact form is not configured. Please add your Formspree ID.");
+            setLoading(false);
+            return;
+        }
+
+        try {
+            const response = await fetch(`https://formspree.io/f/${formspreeId}`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(form),
+            });
+
+            if (response.ok) {
+                setSent(true);
+            } else {
+                const data = await response.json();
+                setError(data.error || "Something went wrong. Please try again.");
+            }
+        } catch (err) {
+            setError("Could not connect to the server. Please check your internet connection.");
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
@@ -165,6 +193,12 @@ export default function Contact() {
                                         <label style={{ display: "block", fontSize: "0.8rem", color: "#64748b", marginBottom: "0.5rem", fontWeight: 500 }} htmlFor="message">Message</label>
                                         <textarea id="message" name="message" required rows={6} value={form.message} onChange={handleChange} placeholder="Describe your project, timeline, and what you're looking for..." className="form-input" />
                                     </div>
+
+                                    {error && (
+                                        <div style={{ padding: "0.75rem", borderRadius: "0.5rem", background: "rgba(239,68,68,0.1)", border: "1px solid rgba(239,68,68,0.2)", color: "#f87171", fontSize: "0.8rem", textAlign: "center" }}>
+                                            {error}
+                                        </div>
+                                    )}
 
                                     <motion.button
                                         id="contact-submit"
