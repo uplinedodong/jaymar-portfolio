@@ -11,9 +11,9 @@ const NAV = [
 ];
 
 const SOCIALS = [
-    { icon: Github, href: "https://github.com/jaymar-aranas", label: "GitHub" },
-    { icon: Facebook, href: "https://facebook.com/jaymar.aranas", label: "Facebook" },
-    { icon: Mail, href: "mailto:jaymar.aranas@email.com", label: "Email" },
+    { icon: Github, href: "https://github.com/uplinedodong", label: "GitHub" },
+    { icon: Facebook, href: "https://facebook.com/xuplinedd", label: "Facebook" },
+    { icon: Mail, href: "mailto:101aranasjaymar@email.com", label: "Email" },
 ];
 
 export default function Footer() {
