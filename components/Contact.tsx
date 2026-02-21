@@ -5,9 +5,9 @@ import { motion, useInView } from "framer-motion";
 import { Mail, Github, Facebook, Send, CheckCircle, MapPin, Clock, ArrowRight } from "lucide-react";
 
 const SOCIALS = [
-    { id: "c-email", icon: Mail, label: "Email", value: "jaymar.aranas@email.com", href: "mailto:jaymar.aranas@email.com", color: "#6366f1" },
-    { id: "c-github", icon: Github, label: "GitHub", value: "github.com/jaymar-aranas", href: "https://github.com/jaymar-aranas", color: "#94a3b8" },
-    { id: "c-facebook", icon: Facebook, label: "Facebook", value: "Jaymar Aranas", href: "https://facebook.com/jaymar.aranas", color: "#3b82f6" },
+    { id: "c-email", icon: Mail, label: "Email", value: "101aranasjaymar@gmail.com", href: "mailto:101aranasjaymar@gmail.com", color: "#6366f1" },
+    { id: "c-github", icon: Github, label: "GitHub", value: "github.com/uplinedodong", href: "https://github.com/uplinedodong", color: "#94a3b8" },
+    { id: "c-facebook", icon: Facebook, label: "Facebook", value: "Jaymar G. Aranas", href: "https://facebook.com/xuplinedd", color: "#3b82f6" },
 ];
 
 function Reveal({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
@@ -148,11 +148,11 @@ export default function Contact() {
                                     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }} className="form-row">
                                         <div>
                                             <label style={{ display: "block", fontSize: "0.8rem", color: "#64748b", marginBottom: "0.5rem", fontWeight: 500 }} htmlFor="name">Name</label>
-                                            <input id="name" name="name" type="text" required value={form.name} onChange={handleChange} placeholder="Juan dela Cruz" className="form-input" />
+                                            <input id="name" name="name" type="text" required value={form.name} onChange={handleChange} placeholder="Dodong Jaymar" className="form-input" />
                                         </div>
                                         <div>
                                             <label style={{ display: "block", fontSize: "0.8rem", color: "#64748b", marginBottom: "0.5rem", fontWeight: 500 }} htmlFor="email">Email</label>
-                                            <input id="email" name="email" type="email" required value={form.email} onChange={handleChange} placeholder="juan@email.com" className="form-input" />
+                                            <input id="email" name="email" type="email" required value={form.email} onChange={handleChange} placeholder="dodongjaymar@gmail.com" className="form-input" />
                                         </div>
                                     </div>
 
