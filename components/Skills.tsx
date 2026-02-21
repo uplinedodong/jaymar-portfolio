@@ -7,18 +7,19 @@ type Skill = { name: string; icon: string; slug?: string; rgb: string; color: st
 
 const SKILLS: Skill[] = [
     // Languages
+    // Languages
     { name: "JavaScript", icon: "JS", slug: "javascript", rgb: "247,223,30", color: "#f7df1e", category: "Language" },
     { name: "TypeScript", icon: "TS", slug: "typescript", rgb: "49,120,198", color: "#3178c6", category: "Language" },
     { name: "PHP", icon: "PHP", slug: "php", rgb: "119,123,179", color: "#777bb3", category: "Language" },
-    { name: "Java", icon: "☕", slug: "openjdk", rgb: "234,87,49", color: "#ea5731", category: "Language" },
-    { name: "VB.NET", icon: "VB", slug: "dotnet", rgb: "24,160,251", color: "#18a0fb", category: "Language" },
-    { name: "C#", icon: "C#", slug: "dotnet", rgb: "81,43,212", color: "#512bd4", category: "Language" },
+    { name: "Java", icon: "☕", slug: "java", rgb: "237,139,0", color: "#ED8B00", category: "Language" },
+    { name: "VB.NET", icon: "VB", slug: "visualbasic", rgb: "0,112,192", color: "#0070c0", category: "Language" },
+    { name: "C#", icon: "C#", slug: "csharp", rgb: "145,121,228", color: "#9179e4", category: "Language" },
     { name: "C++", icon: "C++", slug: "cplusplus", rgb: "0,89,155", color: "#00599b", category: "Language" },
-    { name: "PowerScript", icon: "PS", rgb: "255,165,0", color: "#ffa500", category: "Language" },
+    { name: "PowerScript", icon: "PB", rgb: "229,29,36", color: "#e51d24", category: "Language" },
     { name: "Python", icon: "PY", slug: "python", rgb: "55,115,165", color: "#3773a5", category: "Language" },
-    { name: "HTML5", icon: "5", slug: "html5", rgb: "227,76,38", color: "#e34c26", category: "Language" },
+    { name: "HTML5", icon: "HTML", slug: "html5", rgb: "227,76,38", color: "#e34c26", category: "Language" },
     { name: "CSS3", icon: "CSS", slug: "css3", rgb: "21,114,182", color: "#1572b6", category: "Language" },
-    { name: "SQL", icon: "⚡", slug: "mysql", rgb: "56,189,248", color: "#38bdf8", category: "Language" },
+    { name: "SQL", icon: "SQL", slug: "mysql", rgb: "56,189,248", color: "#38bdf8", category: "Language" },
     // Frameworks
     { name: "Laravel", icon: "L", slug: "laravel", rgb: "255,45,32", color: "#ff2d20", category: "Framework" },
     { name: "React", icon: "⚛", slug: "react", rgb: "97,218,251", color: "#61dafb", category: "Framework" },
@@ -138,7 +139,13 @@ function SkillCard({ skill, delay }: { skill: Skill; delay: number }) {
     const ref = useRef(null);
     const inView = useInView(ref, { once: true, margin: "-40px" });
     const [hovered, setHovered] = useState(false);
-    const [imgError, setImgError] = useState(false);
+    const [imgStatus, setImgStatus] = useState<'loading' | 'success' | 'error'>('loading');
+
+    // Simple icons colors should be lowercase without #
+    const iconColor = skill.color.replace("#", "").toLowerCase();
+    const iconUrl = skill.slug
+        ? `https://cdn.simpleicons.org/${skill.slug}/${iconColor}`
+        : null;
 
     return (
         <motion.div
@@ -165,32 +172,40 @@ function SkillCard({ skill, delay }: { skill: Skill; delay: number }) {
                 overflow: "hidden",
                 ...(hovered ? { background: `rgba(${skill.rgb},0.2)`, boxShadow: `0 0 16px rgba(${skill.rgb},0.3)` } : {}),
             }}>
-                {skill.slug && !imgError ? (
+                {iconUrl && imgStatus !== 'error' && (
                     <img
-                        key={skill.name}
-                        src={`https://cdn.simpleicons.org/${skill.slug}/${skill.color.replace("#", "")}`}
+                        src={iconUrl}
                         alt={skill.name}
-                        crossOrigin="anonymous"
-                        onError={() => setImgError(true)}
+                        onLoad={() => setImgStatus('success')}
+                        onError={() => setImgStatus('error')}
                         style={{
                             width: "28px",
                             height: "28px",
                             objectFit: "contain",
                             filter: hovered ? "brightness(1.2) saturate(1.2)" : "none",
-                            transition: "all 0.3s ease",
+                            transition: "all 0.3s opacity",
+                            opacity: imgStatus === 'success' ? 1 : 0,
+                            position: imgStatus === 'success' ? 'relative' : 'absolute',
                         }}
                     />
-                ) : (
+                )}
+
+                {(imgStatus === 'error' || !iconUrl) && (
                     <span style={{
-                        fontFamily: "JetBrains Mono, monospace",
-                        fontWeight: 700,
-                        fontSize: skill.icon.length > 2 ? "0.75rem" : "1.05rem",
+                        fontFamily: "'Plus Jakarta Sans', sans-serif",
+                        fontWeight: 800,
+                        fontSize: skill.icon.length > 3 ? "0.65rem" : "0.95rem",
                         color: skill.color,
                         textAlign: "center",
-                        display: "block"
+                        display: "block",
+                        letterSpacing: "-0.02em"
                     }}>
                         {skill.icon}
                     </span>
+                )}
+
+                {imgStatus === 'loading' && iconUrl && (
+                    <div className="shimmer" style={{ position: "absolute", inset: 0, background: "rgba(255,255,255,0.03)" }} />
                 )}
             </div>
 
