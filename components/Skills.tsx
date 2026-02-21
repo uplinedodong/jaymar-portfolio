@@ -12,7 +12,7 @@ const SKILLS: Skill[] = [
     { name: "PHP", icon: "PHP", slug: "php", rgb: "119,123,179", color: "#777bb3", category: "Language" },
     { name: "Java", icon: "☕", slug: "openjdk", rgb: "234,87,49", color: "#ea5731", category: "Language" },
     { name: "VB.NET", icon: "VB", slug: "dotnet", rgb: "24,160,251", color: "#18a0fb", category: "Language" },
-    { name: "C#", icon: "C#", slug: "csharp", rgb: "81,43,212", color: "#512bd4", category: "Language" },
+    { name: "C#", icon: "C#", slug: "dotnet", rgb: "81,43,212", color: "#512bd4", category: "Language" },
     { name: "C++", icon: "C++", slug: "cplusplus", rgb: "0,89,155", color: "#00599b", category: "Language" },
     { name: "PowerScript", icon: "PS", rgb: "255,165,0", color: "#ffa500", category: "Language" },
     { name: "Python", icon: "PY", slug: "python", rgb: "55,115,165", color: "#3773a5", category: "Language" },
@@ -167,8 +167,10 @@ function SkillCard({ skill, delay }: { skill: Skill; delay: number }) {
             }}>
                 {skill.slug && !imgError ? (
                     <img
+                        key={skill.name}
                         src={`https://cdn.simpleicons.org/${skill.slug}/${skill.color.replace("#", "")}`}
                         alt={skill.name}
+                        crossOrigin="anonymous"
                         onError={() => setImgError(true)}
                         style={{
                             width: "28px",
@@ -183,7 +185,9 @@ function SkillCard({ skill, delay }: { skill: Skill; delay: number }) {
                         fontFamily: "JetBrains Mono, monospace",
                         fontWeight: 700,
                         fontSize: skill.icon.length > 2 ? "0.75rem" : "1.05rem",
-                        color: skill.color
+                        color: skill.color,
+                        textAlign: "center",
+                        display: "block"
                     }}>
                         {skill.icon}
                     </span>
