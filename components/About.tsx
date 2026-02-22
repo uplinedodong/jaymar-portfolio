@@ -118,18 +118,6 @@ export default function About() {
                         {/* Glow and Image */}
                         <div style={{ position: "absolute", top: "-40px", right: "-40px", width: "220px", height: "220px", background: "radial-gradient(circle, rgba(99,102,241,0.15) 0%, transparent 70%)", pointerEvents: "none" }} />
 
-                        <div style={{ position: "absolute", top: "1.5rem", right: "1.5rem", zIndex: 2 }}>
-                            <div style={{ position: "relative", width: "70px", height: "70px", borderRadius: "100%", padding: "3px", background: "linear-gradient(135deg, #6366f1, #8b5cf6)", boxShadow: "0 0 20px rgba(99,102,241,0.3)" }}>
-                                <Image
-                                    src="/jaymar.png"
-                                    alt="Jaymar Aranas"
-                                    width={70}
-                                    height={70}
-                                    style={{ borderRadius: "100%", objectFit: "cover", background: "#030712" }}
-                                />
-                            </div>
-                        </div>
-
                         <div style={{ width: "48px", height: "48px", borderRadius: "14px", background: "linear-gradient(135deg, #6366f1, #8b5cf6)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "1.25rem", boxShadow: "0 0 20px rgba(99,102,241,0.3)" }}>
                             <Code2 size={22} color="white" />
                         </div>

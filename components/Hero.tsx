@@ -133,7 +133,7 @@ export default function Hero() {
                                 }}>
                                     <Image
                                         src="/jaymar.png"
-                                        alt="Jaymar Aranas"
+                                        alt="Jaymar G. Aranas"
                                         width={96}
                                         height={96}
                                         style={{ borderRadius: "100%", objectFit: "cover", background: "#030712" }}
@@ -143,23 +143,6 @@ export default function Hero() {
                             </motion.div>
 
                             <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-                                {/* Status badge */}
-                                <motion.div
-                                    initial={{ opacity: 0, y: 16 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.6, delay: 0.1 }}
-                                    style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.375rem" }}
-                                >
-                                    <span className="section-label" style={{ fontSize: "0.65rem", padding: "0.25rem 0.6rem" }}>
-                                        <span style={{ position: "relative", display: "inline-flex" }}>
-                                            <span style={{ width: "5px", height: "5px", borderRadius: "50%", background: "#22c55e", display: "block" }} />
-                                            <span style={{ position: "absolute", inset: 0, borderRadius: "50%", background: "#22c55e", animation: "pulse 1.5s ease-out infinite" }} />
-                                        </span>
-                                        Booking for Q{Math.floor(new Date().getMonth() / 3) + 1} {new Date().getFullYear()}
-                                        <Sparkles size={10} />
-                                    </span>
-                                </motion.div>
-
                                 {/* Name */}
                                 <motion.h1
                                     initial={{ opacity: 0, y: 24 }}
@@ -167,8 +150,6 @@ export default function Hero() {
                                     transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
                                     style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 900, lineHeight: 1.05, letterSpacing: "-0.03em", margin: 0 }}
                                 >
-                                    <span style={{ fontSize: "clamp(2.75rem, 6vw, 4.5rem)", color: "#f1f5f9", display: "block" }}>Jaymar</span>
-                                    <span className="gradient-text" style={{ fontSize: "clamp(2.75rem, 6vw, 4.5rem)", display: "block" }}>Aranas</span>
                                 </motion.h1>
                             </div>
                         </div>
@@ -192,6 +173,7 @@ export default function Hero() {
                             initial={{ opacity: 0, y: 16 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.55, duration: 0.6 }}
+                            className="font-century"
                             style={{ color: "#64748b", fontSize: "1.0625rem", lineHeight: 1.75, maxWidth: "460px", marginBottom: "2.25rem" }}
                         >
                             I build{" "}
@@ -223,29 +205,39 @@ export default function Hero() {
                             style={{
                                 marginTop: "1.75rem",
                                 display: "flex",
-                                gap: "3.5rem",
-                                alignItems: "center"
+                                flexWrap: "wrap",
+                                gap: "1.75rem",
+                                alignItems: "flex-start"
                             }}
                         >
                             {[
                                 { n: "2+", label: "Yrs Experience" },
                                 { n: "7+", label: "Projects" },
                             ].map((s) => (
-                                <div key={s.label} style={{ textAlign: "center" }}>
+                                <div
+                                    key={s.label}
+                                    style={{
+                                        textAlign: "center",
+                                        minWidth: "110px",
+                                        flex: "0 0 auto",
+                                    }}
+                                >
                                     <div style={{
                                         fontFamily: "'Plus Jakarta Sans', sans-serif",
                                         fontWeight: 800,
                                         fontSize: "1.75rem",
                                         color: "#f1f5f9",
-                                        lineHeight: 1
+                                        lineHeight: 1.05
                                     }} className="gradient-text">{s.n}</div>
                                     <div style={{
-                                        fontSize: "0.625rem",
+                                        fontSize: "0.6875rem",
                                         color: "#64748b",
                                         marginTop: "0.375rem",
-                                        letterSpacing: "0.1em",
+                                        letterSpacing: "0.12em",
                                         textTransform: "uppercase",
-                                        fontWeight: 600
+                                        fontWeight: 600,
+                                        lineHeight: 1.25,
+                                        whiteSpace: "nowrap"
                                     }}>{s.label}</div>
                                 </div>
                             ))}
@@ -314,10 +306,8 @@ export default function Hero() {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1.2 }}
                 style={{
-                    position: "absolute",
-                    bottom: "2.5rem",
-                    left: 0,
-                    right: 0,
+                    width: "100%",
+                    marginTop: "2.75rem",
                     overflow: "hidden",
                     padding: "0.75rem 0",
                     borderTop: "1px solid rgba(255,255,255,0.04)",
@@ -346,7 +336,7 @@ export default function Hero() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1.5 }}
-                style={{ position: "absolute", bottom: "6rem", left: "50%", transform: "translateX(-50%)", display: "flex", flexDirection: "column", alignItems: "center", gap: "0.375rem", color: "#334155" }}
+                style={{ position: "absolute", bottom: "1.25rem", left: "50%", transform: "translateX(-50%)", display: "flex", flexDirection: "column", alignItems: "center", gap: "0.375rem", color: "#334155" }}
             >
                 <motion.div
                     animate={{ y: [0, 6, 0] }}

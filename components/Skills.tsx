@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
 
 type Skill = { name: string; icon: string; slug?: string; rgb: string; color: string; category: string };
@@ -38,12 +38,13 @@ const SKILLS: Skill[] = [
     { name: "Postman", icon: "🚀", slug: "postman", rgb: "255,108,55", color: "#FF6C37", category: "Tool" },
     { name: "ODBC", icon: "🔌", rgb: "56,128,232", color: "#3880e8", category: "Tool" },
     { name: "Git", icon: "⎇", slug: "git", rgb: "240,80,50", color: "#f05032", category: "Tool" },
-    { name: "REST API", icon: "🔌", rgb: "34,197,94", color: "#22c55e", category: "Tool" },
-    { name: "System Design", icon: "🏗", rgb: "167,139,250", color: "#a78bfa", category: "Tool" },
-    { name: "CRUD Apps", icon: "⚙", rgb: "251,191,36", color: "#fbbf24", category: "Tool" },
+    // Concepts / Architecture
+    { name: "REST APIs", icon: "🔌", rgb: "34,197,94", color: "#22c55e", category: "Concept" },
+    { name: "System Design", icon: "🏗", rgb: "167,139,250", color: "#a78bfa", category: "Concept" },
+    { name: "CRUD Applications", icon: "⚙", rgb: "251,191,36", color: "#fbbf24", category: "Concept" },
 ];
 
-const CATEGORIES = ["All", "Language", "Framework", "Database", "Tool"];
+const CATEGORIES = ["All", "Language", "Framework", "Database", "Tool", "Concept"];
 
 function Reveal({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
     const ref = useRef(null);
@@ -110,7 +111,7 @@ export default function Skills() {
                 {/* Skill Grid */}
                 <motion.div
                     layout
-                    style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(130px, 1fr))", gap: "0.875rem" }}
+                    style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(160px, 1fr))", gap: "0.875rem" }}
                 >
                     {filtered.map((skill, i) => (
                         <SkillCard key={skill.name} skill={skill} delay={i * 0.04} />
@@ -140,6 +141,19 @@ function SkillCard({ skill, delay }: { skill: Skill; delay: number }) {
     const inView = useInView(ref, { once: true, margin: "-40px" });
     const [hovered, setHovered] = useState(false);
     const [imgStatus, setImgStatus] = useState<'loading' | 'success' | 'error'>('loading');
+    const [showFallback, setShowFallback] = useState(false);
+
+    // Option 1 Implementation: Timeout fallback for slow connections
+    useEffect(() => {
+        if (imgStatus === 'loading') {
+            const timer = setTimeout(() => {
+                if (imgStatus === 'loading') {
+                    setShowFallback(true);
+                }
+            }, 2000); // 2 second timeout for icon load
+            return () => clearTimeout(timer);
+        }
+    }, [imgStatus]);
 
     // Simple icons colors should be lowercase without #
     const iconColor = skill.color.replace("#", "").toLowerCase();
@@ -172,10 +186,13 @@ function SkillCard({ skill, delay }: { skill: Skill; delay: number }) {
                 overflow: "hidden",
                 ...(hovered ? { background: `rgba(${skill.rgb},0.2)`, boxShadow: `0 0 16px rgba(${skill.rgb},0.3)` } : {}),
             }}>
-                {iconUrl && imgStatus !== 'error' && (
+                {iconUrl && imgStatus !== 'error' && !showFallback && (
                     <img
                         src={iconUrl}
                         alt={skill.name}
+                        fetchPriority="low"
+                        decoding="async"
+                        loading="lazy"
                         onLoad={() => setImgStatus('success')}
                         onError={() => setImgStatus('error')}
                         style={{
@@ -183,14 +200,13 @@ function SkillCard({ skill, delay }: { skill: Skill; delay: number }) {
                             height: "28px",
                             objectFit: "contain",
                             filter: hovered ? "brightness(1.2) saturate(1.2)" : "none",
-                            transition: "all 0.3s opacity",
+                            transition: "opacity 0.2s ease-in-out",
                             opacity: imgStatus === 'success' ? 1 : 0,
-                            position: imgStatus === 'success' ? 'relative' : 'absolute',
                         }}
                     />
                 )}
 
-                {(imgStatus === 'error' || !iconUrl) && (
+                {(imgStatus === 'error' || !iconUrl || showFallback) && (
                     <span style={{
                         fontFamily: "'Plus Jakarta Sans', sans-serif",
                         fontWeight: 800,
@@ -210,12 +226,12 @@ function SkillCard({ skill, delay }: { skill: Skill; delay: number }) {
             </div>
 
             {/* Name */}
-            <span style={{ fontSize: "0.8rem", fontWeight: 600, color: hovered ? "#f1f5f9" : "#94a3b8", textAlign: "center", transition: "color 0.2s ease", lineHeight: 1.3 }}>
+            <span style={{ fontSize: "0.85rem", fontWeight: 650, color: hovered ? "#f8fafc" : "#cbd5e1", textAlign: "center", transition: "color 0.2s ease", lineHeight: 1.25 }}>
                 {skill.name}
             </span>
 
             {/* Category label */}
-            <span style={{ fontSize: "0.65rem", color: "#334155", letterSpacing: "0.04em", fontFamily: "JetBrains Mono, monospace" }}>
+            <span style={{ fontSize: "0.68rem", color: "#64748b", letterSpacing: "0.08em", fontFamily: "JetBrains Mono, monospace", textTransform: "uppercase" }}>
                 {skill.category}
             </span>
         </motion.div>

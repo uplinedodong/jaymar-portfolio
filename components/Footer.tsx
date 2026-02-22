@@ -123,7 +123,7 @@ export default function Footer() {
                 {/* Bottom */}
                 <div style={{ paddingTop: "1.5rem", borderTop: "1px solid rgba(255,255,255,0.04)", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "1rem" }}>
                     <p style={{ fontSize: "0.75rem", color: "#475569", letterSpacing: "0.02em" }}>
-                        © {year} Jaymar Aranas. Precision-engineered in the Philippines.
+                        © {year} Jaymar G. Aranas. Precision-engineered in the Philippines.
                     </p>
                     <div style={{ display: "flex", gap: "1.5rem" }}>
                         <span style={{ fontSize: "0.75rem", color: "#1e293b", textTransform: "uppercase", letterSpacing: "0.1em", fontWeight: 600 }}>

@@ -184,7 +184,7 @@ export default function Projects() {
 
                 {/* Featured projects (large) */}
                 {featured.length > 0 && (
-                    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(500px, 1fr))", gap: "1.25rem", marginBottom: "1.25rem" }} className="featured-grid">
+                    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(500px, 1fr))", gap: "1.25rem", marginBottom: "1.25rem", alignItems: "stretch" }} className="featured-grid">
                         {featured.map((p, i) => (
                             <FeaturedCard key={p.id} project={p} delay={i * 0.1} />
                         ))}
@@ -193,7 +193,7 @@ export default function Projects() {
 
                 {/* Rest (smaller) */}
                 {rest.length > 0 && (
-                    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))", gap: "1.25rem" }}>
+                    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))", gap: "1.25rem", alignItems: "stretch" }}>
                         {rest.map((p, i) => (
                             <SmallCard key={p.id} project={p} delay={i * 0.07} />
                         ))}
@@ -225,7 +225,8 @@ function FeaturedCard({ project, delay }: { project: Project; delay: number }) {
             onMouseLeave={() => setHovered(false)}
             className="project-card"
             style={{
-                minHeight: "320px",
+                minHeight: "340px",
+                height: "100%",
                 transform: hovered ? "translateY(-6px)" : "translateY(0)",
                 transition: "all 0.4s cubic-bezier(0.4,0,0.2,1)",
                 boxShadow: hovered ? `0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(${project.gradientFrom.replace("#", "").match(/../g)?.map(h => parseInt(h, 16)).join(",")},0.15)` : "none",
@@ -303,6 +304,8 @@ function SmallCard({ project, delay }: { project: Project; delay: number }) {
             onMouseLeave={() => setHovered(false)}
             className="project-card"
             style={{
+                minHeight: "360px",
+                height: "100%",
                 transform: hovered ? "translateY(-4px)" : "translateY(0)",
                 transition: "all 0.3s ease",
                 borderColor: hovered ? "rgba(99,102,241,0.2)" : "rgba(255,255,255,0.05)",
