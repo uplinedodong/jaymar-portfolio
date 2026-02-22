@@ -26,6 +26,9 @@ export default function Contact() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
+    const formspreeId = process.env.NEXT_PUBLIC_FORMSPREE_ID || "";
+    const isConfigured = Boolean(formspreeId && formspreeId.length > 3);
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
         setForm({ ...form, [e.target.name]: e.target.value });
 
@@ -34,13 +37,7 @@ export default function Contact() {
         setLoading(true);
         setError(null);
 
-        const formspreeId = process.env.NEXT_PUBLIC_FORMSPREE_ID;
-
-        if (!formspreeId || formspreeId === "your_id_here") {
-            setError("Contact form is not configured. Please add your Formspree ID.");
-            setLoading(false);
-            return;
-        }
+        if (!isConfigured) return;
 
         try {
             const response = await fetch(`https://formspree.io/f/${formspreeId}`, {
@@ -52,8 +49,14 @@ export default function Contact() {
             if (response.ok) {
                 setSent(true);
             } else {
-                const data = await response.json();
-                setError(data.error || "Something went wrong. Please try again.");
+                let message = "Something went wrong. Please try again.";
+                try {
+                    const data = await response.json();
+                    message = data.error || data.message || message;
+                } catch {
+                    // ignore JSON parse errors
+                }
+                setError(message);
             }
         } catch (err) {
             setError("Could not connect to the server. Please check your internet connection.");
@@ -200,10 +203,16 @@ export default function Contact() {
                                         </div>
                                     )}
 
+                                    {!isConfigured && (
+                                        <div style={{ padding: "0.75rem", borderRadius: "0.5rem", background: "rgba(99,102,241,0.08)", border: "1px solid rgba(99,102,241,0.2)", color: "#a5b4fc", fontSize: "0.8rem", textAlign: "center" }}>
+                                            Contact form is temporarily unavailable. Please email me instead.
+                                        </div>
+                                    )}
+
                                     <motion.button
                                         id="contact-submit"
                                         type="submit"
-                                        disabled={loading}
+                                        disabled={loading || !isConfigured}
                                         whileHover={{ scale: 1.01 }}
                                         whileTap={{ scale: 0.98 }}
                                         className="btn-primary"
