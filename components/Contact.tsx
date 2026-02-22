@@ -26,7 +26,7 @@ export default function Contact() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
-    const formspreeId = process.env.NEXT_PUBLIC_FORMSPREE_ID || "";
+    const formspreeId = process.env.NEXT_PUBLIC_FORMSPREE_ID || "xzdajrqg";
     const isConfigured = Boolean(formspreeId && formspreeId.length > 3);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
@@ -198,16 +198,32 @@ export default function Contact() {
                                     </div>
 
                                     {error && (
-                                        <div style={{ padding: "0.75rem", borderRadius: "0.5rem", background: "rgba(239,68,68,0.1)", border: "1px solid rgba(239,68,68,0.2)", color: "#f87171", fontSize: "0.8rem", textAlign: "center" }}>
-                                            {error}
+                                        <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem", padding: "1rem", borderRadius: "0.75rem", background: "rgba(239,68,68,0.1)", border: "1px solid rgba(239,68,68,0.2)" }}>
+                                            <div style={{ color: "#f87171", fontSize: "0.85rem", textAlign: "center", fontWeight: 500 }}>
+                                                {error}
+                                            </div>
+                                            <div style={{ height: "1px", background: "rgba(239,68,68,0.2)", width: "100%" }} />
+                                            <a 
+                                                href={`mailto:101aranasjaymar@gmail.com?subject=${encodeURIComponent(form.subject || "Project Inquiry")}&body=${encodeURIComponent(form.message + "\n\nFrom: " + form.name + " (" + form.email + ")")}`}
+                                                style={{ 
+                                                    display: "flex", 
+                                                    alignItems: "center", 
+                                                    justifyContent: "center", 
+                                                    gap: "0.5rem", 
+                                                    color: "#fca5a5", 
+                                                    fontSize: "0.8rem", 
+                                                    textDecoration: "none",
+                                                    fontWeight: 600
+                                                }}
+                                                className="hover:underline"
+                                            >
+                                                <Mail size={14} />
+                                                Click here to email me directly instead
+                                            </a>
                                         </div>
                                     )}
 
-                                    {!isConfigured && (
-                                        <div style={{ padding: "0.75rem", borderRadius: "0.5rem", background: "rgba(99,102,241,0.08)", border: "1px solid rgba(99,102,241,0.2)", color: "#a5b4fc", fontSize: "0.8rem", textAlign: "center" }}>
-                                            Contact form is temporarily unavailable. Please email me instead.
-                                        </div>
-                                    )}
+                                    {/* Fallback info removed to keep form clean */}
 
                                     <motion.button
                                         id="contact-submit"
