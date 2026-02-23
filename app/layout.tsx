@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Jaymar G. Aranas — Full-Stack & Mobile Developer",
+  title: "Jaymar G. Aranas | Porfolio",
   description:
     "Portfolio of Jaymar G. Aranas — a production-focused Full-Stack and Mobile App Developer from the Philippines. React Native, Next.js, and real-world systems.",
   keywords: ["Jaymar G. Aranas", "Full-Stack Developer", "Mobile App Developer", "React Native", "Next.js", "Philippines"],

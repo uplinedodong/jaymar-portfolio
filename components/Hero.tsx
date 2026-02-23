@@ -49,7 +49,10 @@ export default function Hero() {
     const [isTyping, setIsTyping] = useState(true);
     const [revealedLines, setRevealedLines] = useState(0);
     const containerRef = useRef<HTMLElement>(null);
-    const { scrollYProgress } = useScroll({ target: containerRef });
+    const { scrollYProgress } = useScroll({
+        target: containerRef,
+        offset: ["start start", "end start"]
+    });
     const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
     const y = useTransform(scrollYProgress, [0, 0.5], [0, 60]);
 
@@ -187,7 +190,7 @@ export default function Hero() {
                             initial={{ opacity: 0, y: 16 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.65, duration: 0.6 }}
-                            style={{ display: "flex", gap: "0.875rem", flexWrap: "wrap" }}
+                            style={{ display: "flex", gap: "0.875rem", flexWrap: "wrap", position: "relative", zIndex: 10 }}
                         >
                             <a href="#projects" className="btn-primary" id="hero-projects-btn">
                                 View Work →

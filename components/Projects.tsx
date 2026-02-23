@@ -35,7 +35,6 @@ const PROJECTS: Project[] = [
             { label: "Consumer Accounts", value: "3000+" },
             { label: "Meter Readers", value: "Mobile Sync" },
             { label: "Offline Field Reading", value: "Supported" },
-            { label: "Error Rate", value: "↓ 98%" },
         ],
     },
     {
@@ -115,6 +114,18 @@ const PROJECTS: Project[] = [
         techStack: ["React Native", "Expo", "Firebase", "TypeScript"],
         gradientFrom: "#f97316",
         gradientTo: "#fb923c",
+    },
+    {
+        id: "gap-pedicab",
+        title: "GAP: Grab A Pedicab",
+        subtitle: "A Local Pedicab Ride Hailing Platform",
+        description:
+            "A web-based local ride-hailing platform catering to the people of Dumaguete City. Features include requesting & posting rides, ride-sharing, discovering new places, and finding new friends.",
+        type: "Web System",
+        icon: Globe,
+        techStack: ["HTML", "CSS", "Bootstrap", "PHP"],
+        gradientFrom: "#0284c7",
+        gradientTo: "#0ea5e9",
     },
 ];
 
